@@ -4,6 +4,8 @@ library(ggplot2)
 library(sf)
 library(spdep)
 
+setwd("C:/Users/madis/Desktop/RHDV2_R/WV_predictions")
+
 #load county data
 counties <- read_sf("WV_counties.shp")
 county_names <- sort(counties$NAME)
@@ -158,11 +160,14 @@ server <- function(input, output, session) {
       
       #plot with user input
       ggplot(counties) +
-        geom_sf(aes(fill = predicted), color = "white", linewidth = 0.3) +
+        geom_sf(aes(fill = predicted), color = "grey30", linewidth = 0.3) +
         geom_sf(data = counties[counties$observed, ],
                 fill = NA, color = "red", linewidth = 0.8) +
-        scale_fill_viridis_c(name = "Predicted\ncases") +
+        geom_sf_text(aes(label = round(predicted, 2)), size = 5, color = "black") +
+        scale_fill_distiller(name = "Predicted\ncases", palette = "YlOrRd", direction = 1) +
         theme_void() +
+        theme(legend.title = element_text(face= "bold", size = 16),
+              legend.text  = element_text(size = 14)) +
         labs(title = sprintf("Total observed: %d  |  Log intercept: %.3f",
                              total_cases, log(total_cases / n)))
     })
