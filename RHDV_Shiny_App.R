@@ -4,7 +4,7 @@ library(ggplot2)
 library(sf)
 library(spdep)
 
-setwd("C:/Users/madis/Desktop/RHDV2_R/WV_predictions")
+# setwd("C:/Users/madis/Desktop/RHDV2_R/WV_predictions")
 
 #load county data
 counties <- read_sf("WV_counties.shp")
